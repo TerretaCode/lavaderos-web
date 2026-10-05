@@ -1,0 +1,36 @@
+---
+import '@fontsource-variable/sora';
+import '@fontsource-variable/inter';
+import '../styles/global.css';
+import { PREVIEW } from '../config';
+const { title, description } = Astro.props;
+const ld = {
+  '@context': 'https://schema.org',
+  '@type': 'AutomotiveBusiness',
+  name: 'Lavaderos y Limpiezas',
+  description,
+  areaServed: 'Riba-roja de Túria, Valencia',
+  address: { '@type': 'PostalAddress', addressLocality: 'Riba-roja de Túria', addressRegion: 'Valencia', addressCountry: 'ES' },
+};
+---
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#070b10" />
+    {PREVIEW && <meta name="robots" content="noindex,nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="es_ES" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script type="application/ld+json" set:html={JSON.stringify(ld)} />
+    <script is:inline>document.documentElement.classList.add('js')</script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,344 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import BeforeAfter from '../components/BeforeAfter.astro';
+import CabScene from '../components/CabScene.astro';
+import ShowroomScene from '../components/ShowroomScene.astro';
+import { wa, tel, PREVIEW, PHONE, PHONE_LABEL, CONTACT_API } from '../config';
+
+const msg = {
+  general: 'Hola, quería información sobre vuestros servicios de limpieza.',
+  tractoras: 'Hola, quería información sobre la limpieza interior de tractoras en nuestra campa.',
+  concesionario: 'Hola, quería información sobre la limpieza de vehículos de exposición en nuestro concesionario.',
+  oficinas: 'Hola, quería información sobre la limpieza de oficinas para empresas.',
+  agro: 'Hola, quería información sobre el servicio de limpieza para plantas de agroalimentación.',
+  uniformes: 'Hola, quería información sobre la lavandería de uniformes de empresa y chóferes.',
+  nave: 'Hola, quería información sobre el lavado de vehículos en vuestra nave de Ribarroja.',
+};
+
+const marquee = ['Tractoras en tu campa', 'Concesionarios', 'Limpieza manual', 'Oficinas', 'Plantas agroalimentarias', 'Uniformes de empresa', 'Furgonetas', 'Camiones hasta 3.500 kg'];
+const bubbles = Array.from({ length: 14 }, (_, i) => ({
+  l: (i * 73) % 100, s: 8 + ((i * 11) % 26), d: 14 + ((i * 7) % 16), dl: -((i * 3) % 14), dx: ((i % 2 ? 1 : -1) * (14 + i * 4)),
+}));
+const faqs = [
+  ['¿Os desplazáis a nuestra campa o concesionario?', 'Sí. En la limpieza interior de tractoras y en la de vehículos de exposición vamos nosotros a vuestra campa o a vuestro concesionario. No tenéis que mover la flota ni el stock.'],
+  ['¿Qué vehículos laváis en la nave de Ribarroja?', 'Coches, furgonetas, motos, remolques y camiones hasta 3.500 kg, con limpieza manual interior y exterior. Para tractoras hacemos el interior.'],
+  ['¿La limpieza es manual?', 'Sí. Trabajamos de forma manual, con limpieza rápida tanto por dentro como por fuera.'],
+  ['¿Cómo funciona la lavandería de uniformes?', 'Podéis traer los uniformes de chóferes y de empresa a nuestra nave en Ribarroja, o los recogemos y los llevamos de vuelta a vuestra empresa.'],
+  ['¿Qué empresas pueden contratar vuestros servicios?', 'Empresas de transporte, concesionarios, oficinas y fábricas de alimentación que necesiten personal de limpieza en sus plantas de producción.'],
+  ['¿Cómo pido información?', 'Escribiéndonos por WhatsApp. Contadnos qué necesitáis y dónde, y os respondemos.'],
+];
+---
+<Base
+  title="Lavaderos y Limpiezas · Limpieza de tractoras en tu campa y vehículos de concesionario"
+  description="Lavaderos y Limpiezas, en Riba-roja de Túria. Limpieza manual del interior de tractoras en tu campa, vehículos de exposición en tu concesionario, oficinas, plantas agroalimentarias y lavandería de uniformes."
+>
+  <div class="road" aria-hidden="true"><i></i><b><Icon name="truck" size={17} /></b></div>
+
+  <header class="nav" id="nav">
+    <div class="wrap">
+      <a href="#top" class="mark" aria-label="Lavaderos y Limpiezas, inicio">
+        <svg class="mark-drop" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c9 12 17 20 17 30a17 17 0 0 1-34 0C15 26 23 18 32 6Z" fill="#26d0ff"/><path d="M23 38a9 9 0 0 0 9 10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".85"/></svg>
+        <span class="mark-text"><b>Lavaderos</b><i>y Limpiezas</i></span>
+      </a>
+      <nav class="nav-links" aria-label="Principal">
+        <a href="#servicios">Servicios</a><a href="#empresas">Empresas</a><a href="#nave">La nave</a><a href="#proceso">Cómo trabajamos</a><a href="#faq">Preguntas</a>
+      </nav>
+      <div style="display:flex;gap:10px;align-items:center">
+        {PHONE && <a class="btn btn-ghost btn-sm btn-icon" href={tel()} aria-label="Llamar"><Icon name="phone" size={18} /></a>}
+        <a class="btn btn-wa btn-sm" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />Escribir por WhatsApp</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true">
+        <div class="bubbles">
+          {bubbles.map((b) => <span style={`left:${b.l}%;width:${b.s}px;height:${b.s}px;animation-duration:${b.d}s;animation-delay:${b.dl}s;--dx:${b.dx}px`}></span>)}
+        </div>
+      </div>
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow reveal">Lavadero en Ribarroja · Servicio para empresas</span>
+          <h1 class="reveal" style="--d:.08s">Tu flota, impecable.<em class="grad">Vamos a tu campa.</em></h1>
+          <p class="lead reveal" style="--d:.16s">Limpieza manual del interior de tractoras en las campas de empresas de transporte y de coches de exposición en concesionarios. Nos desplazamos nosotros.</p>
+          <div class="cta-row reveal" style="--d:.24s">
+            <a class="btn btn-wa" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={22} />Escríbenos por WhatsApp</a>
+            {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />{PHONE_LABEL || 'Llamar'}</a>}
+            <a class="btn btn-ghost" href="#servicios">Ver servicios <Icon name="arrow" size={18} /></a>
+          </div>
+          <ul class="chips reveal" style="--d:.32s">
+            <li><Icon name="hand" size={16} />Limpieza manual</li>
+            <li><Icon name="pin" size={16} />Nos desplazamos a tu campa</li>
+            <li><Icon name="truck" size={16} />Transporte y concesionarios</li>
+          </ul>
+        </div>
+        <div class="reveal" style="--d:.2s"><BeforeAfter /></div>
+      </div>
+    </section>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <div>{marquee.map((m) => <span>{m}</span>)}</div>
+        <div>{marquee.map((m) => <span>{m}</span>)}</div>
+      </div>
+    </div>
+
+    <section id="servicios">
+      <div class="wrap">
+        <span class="eyebrow reveal">Lo que hacemos mejor</span>
+        <h2 class="h2 reveal">Servicios a domicilio para <span class="grad">transporte y concesionarios</span></h2>
+        <p class="lead reveal">No hace falta que muevas ni un vehículo. Vamos a donde están.</p>
+
+        <div class="feature-grid">
+          <article class="feature reveal">
+            <div class="feature-media">
+              <span class="feature-num">01</span>
+              <span class="badge-go"><Icon name="pin" size={14} />Vamos a tu campa</span>
+              <CabScene />
+            </div>
+            <div class="feature-body">
+              <h3>Interior de tractoras en tu campa</h3>
+              <p>Nos desplazamos a las campas de las empresas de transporte para limpiar el interior de las tractoras, las cabezas de los camiones.</p>
+              <ul class="ticks">
+                <li><Icon name="check" size={18} />Limpieza manual del interior de la cabina</li>
+                <li><Icon name="check" size={18} />Sin desplazar la flota: vamos a tu campa</li>
+                <li><Icon name="check" size={18} />Pensado para empresas de transporte</li>
+              </ul>
+              <a class="btn btn-wa btn-sm" href={wa(msg.tractoras)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />Pedir información</a>
+            </div>
+          </article>
+
+          <article class="feature reveal" style="--d:.12s">
+            <div class="feature-media">
+              <span class="feature-num">02</span>
+              <span class="badge-go"><Icon name="pin" size={14} />Vamos a tu concesionario</span>
+              <ShowroomScene />
+            </div>
+            <div class="feature-body">
+              <h3>Vehículos de exposición en tu concesionario</h3>
+              <p>Limpiamos los coches de exposición directamente en el concesionario, para que lleguen al cliente con la mejor imagen.</p>
+              <ul class="ticks">
+                <li><Icon name="check" size={18} />Limpieza manual interior y exterior</li>
+                <li><Icon name="check" size={18} />Nos desplazamos a tu concesionario</li>
+                <li><Icon name="check" size={18} />Vehículos de exposición siempre a punto</li>
+              </ul>
+              <a class="btn btn-wa btn-sm" href={wa(msg.concesionario)} target="_blank" rel="noopener"><Icon name="whatsapp" size={18} />Pedir información</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="empresas" style="padding-top:0">
+      <div class="wrap">
+        <span class="eyebrow reveal">Más servicios para empresas</span>
+        <h2 class="h2 reveal">Un solo proveedor de limpieza para tu empresa</h2>
+        <div class="bento">
+          <article class="tile reveal">
+            <div class="ico"><Icon name="office" size={26} /></div>
+            <h3>Limpieza de oficinas</h3>
+            <p>Limpieza de oficinas para empresas, para que tu equipo trabaje en un espacio cuidado.</p>
+            <a class="btn btn-ghost btn-sm" style="margin-top:22px" href={wa(msg.oficinas)} target="_blank" rel="noopener"><Icon name="whatsapp" size={17} />Consultar</a>
+          </article>
+          <article class="tile reveal" style="--d:.08s">
+            <div class="ico"><Icon name="factory" size={26} /></div>
+            <h3>Plantas agroalimentarias</h3>
+            <p>Personal de limpieza para las plantas de producción de fábricas de alimentación.</p>
+            <a class="btn btn-ghost btn-sm" style="margin-top:22px" href={wa(msg.agro)} target="_blank" rel="noopener"><Icon name="whatsapp" size={17} />Consultar</a>
+          </article>
+          <article class="tile reveal" style="--d:.16s">
+            <div class="ico"><Icon name="shirt" size={26} /></div>
+            <h3>Lavandería de uniformes</h3>
+            <p>Uniformes de chóferes y de empresa. Tráelos a nuestra nave o los recogemos y entregamos en tu empresa.</p>
+            <a class="btn btn-ghost btn-sm" style="margin-top:22px" href={wa(msg.uniformes)} target="_blank" rel="noopener"><Icon name="whatsapp" size={17} />Consultar</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="nave" id="nave">
+      <div class="wrap nave-grid">
+        <div>
+          <span class="eyebrow reveal">Nuestra nave en Ribarroja</span>
+          <h2 class="h2 reveal">Lavadero rápido y manual, por dentro y por fuera</h2>
+          <p class="lead reveal">Si prefieres traer el vehículo, en nuestra nave lo limpiamos a mano, interior y exterior.</p>
+          <div class="cta-row reveal"><a class="btn btn-wa" href={wa(msg.nave)} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} />Preguntar por WhatsApp</a></div>
+        </div>
+        <div class="vehicles">
+          <div class="veh reveal"><Icon name="car" /><b>Coches</b></div>
+          <div class="veh reveal" style="--d:.05s"><Icon name="van" /><b>Furgonetas</b></div>
+          <div class="veh reveal" style="--d:.1s"><Icon name="moto" /><b>Motos</b></div>
+          <div class="veh reveal" style="--d:.15s"><Icon name="trailer" /><b>Remolques</b></div>
+          <div class="veh reveal" style="--d:.2s"><Icon name="truck" /><b>Camiones</b><small>hasta 3.500 kg</small></div>
+          <div class="veh reveal" style="--d:.25s"><Icon name="spark" /><b>Interior de tractoras</b></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="proceso">
+      <div class="wrap">
+        <div style="text-align:center;max-width:720px;margin-inline:auto">
+          <span class="eyebrow reveal">Así de fácil</span>
+          <h2 class="h2 reveal">Tres pasos y tu flota brilla</h2>
+        </div>
+        <div class="steps">
+          <div class="step reveal"><div class="step-n">1</div><h3>Nos escribes</h3><p>Cuéntanos por WhatsApp qué necesitas y dónde.</p></div>
+          <div class="step reveal" style="--d:.1s"><div class="step-n">2</div><h3>Concretamos el servicio</h3><p>Acordamos el día y el lugar: tu campa, tu concesionario o nuestra nave.</p></div>
+          <div class="step reveal" style="--d:.2s"><div class="step-n">3</div><h3>Limpiamos a mano</h3><p>Vamos, limpiamos y lo dejamos listo para trabajar.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq">
+      <div class="wrap faq-wrap">
+        <div>
+          <span class="eyebrow reveal">Preguntas frecuentes</span>
+          <h2 class="h2 reveal">Lo que suelen preguntarnos</h2>
+          <p class="lead reveal">¿Tienes otra duda? Escríbenos y te la resolvemos.</p>
+        </div>
+        <div class="faq">
+          {faqs.map(([q, a], i) => (
+            <details class="reveal" style={`--d:${i * 0.05}s`}>
+              <summary>{q}<Icon name="plus" size={22} /></summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="contact" id="contacto">
+      <div class="wrap">
+        <div class="contact-card reveal">
+          <span class="eyebrow" style="color:var(--foam)">Hablemos</span>
+          <h2 class="h2">Cuéntanos qué necesitas limpiar</h2>
+          <p class="lead">Escríbenos por WhatsApp y te respondemos.</p>
+          <div class="cta-row">
+            <a class="btn btn-wa" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={22} />Abrir WhatsApp</a>
+            {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />Llamar ahora</a>}
+          </div>
+          <div class="contact-meta">
+            <span><Icon name="pin" size={18} />Riba-roja de Túria, Valencia</span>
+            {PHONE && <a href={tel()} style="display:inline-flex;gap:8px;align-items:center;color:inherit"><Icon name="phone" size={16} />{PHONE_LABEL || `+${PHONE}`}</a>}
+          </div>
+        </div>
+
+        <div class="contact-form-card reveal" style="--d:.1s">
+          <span class="eyebrow">O escríbenos aquí</span>
+          <h3 style="margin-top:10px">Cuéntanos qué necesitas limpiar</h3>
+          <p class="lead" style="margin-top:8px">Te respondemos por WhatsApp o por teléfono en cuanto lo veamos.</p>
+          <form id="contact-form" class="cform" data-contact-api={CONTACT_API}>
+            <input type="text" name="web_hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+            <div class="cform-row">
+              <label>Nombre o empresa<input type="text" name="nombre" required maxlength="120" placeholder="Tu nombre o empresa" /></label>
+              <label>Teléfono o email<input type="text" name="contacto" required maxlength="160" placeholder="600 123 456" /></label>
+            </div>
+            <label>Qué necesitas
+              <select name="servicio">
+                <option value="">Elige un servicio (opcional)</option>
+                <option>Tractoras en campa</option>
+                <option>Concesionario</option>
+                <option>Lavadero en la nave</option>
+                <option>Oficinas</option>
+                <option>Planta agroalimentaria</option>
+                <option>Lavandería de uniformes</option>
+                <option>Otro</option>
+              </select>
+            </label>
+            <label>Mensaje<textarea name="mensaje" required maxlength="2000" rows="4" placeholder="Cuéntanos qué necesitas limpiar y dónde"></textarea></label>
+            <button class="btn btn-send" type="submit"><Icon name="send" size={18} />Enviar mensaje</button>
+            <p class="cform-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div>
+          <a href="#top" class="mark"><svg class="mark-drop" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c9 12 17 20 17 30a17 17 0 0 1-34 0C15 26 23 18 32 6Z" fill="#26d0ff"/></svg><span class="mark-text"><b>Lavaderos</b><i>y Limpiezas</i></span></a>
+          <p style="margin-top:14px;max-width:38ch">Limpieza de vehículos y servicios de limpieza para empresas en Riba-roja de Túria (Valencia).</p>
+        </div>
+        <nav aria-label="Pie"><a href="#servicios">Servicios</a><a href="#nave">La nave</a><a href="#proceso">Cómo trabajamos</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a></nav>
+      </div>
+      <p class="legal">© {new Date().getFullYear()} Lavaderos y Limpiezas.{PREVIEW && <span class="preview-pill">Versión de revisión</span>}</p>
+    </div>
+  </footer>
+
+  <div class="mobile-bar">
+    {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />Llamar</a>}
+    <a class="btn btn-wa" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} />WhatsApp</a>
+  </div>
+  <a class="fab" href={wa(msg.general)} target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><Icon name="whatsapp" size={30} /></a>
+
+  <script>
+    const nav = document.getElementById('nav');
+    const road = document.querySelector<HTMLElement>('.road');
+    const onScroll = () => {
+      nav?.classList.toggle('stuck', scrollY > 24);
+      const max = document.documentElement.scrollHeight - innerHeight;
+      road?.style.setProperty('--p', String(max > 0 ? Math.min(1, scrollY / max) : 0));
+    };
+    onScroll();
+    addEventListener('scroll', onScroll, { passive: true });
+
+    const io = new IntersectionObserver(
+      (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
+
+    document.querySelectorAll<HTMLElement>('[data-ba]').forEach((ba) => {
+      const input = ba.querySelector<HTMLInputElement>('.ba-range')!;
+      const set = (v: number) => ba.style.setProperty('--pos', v + '%');
+      let touched = false;
+      input.addEventListener('input', () => { touched = true; set(+input.value); });
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const t0 = performance.now();
+      const tick = (t: number) => {
+        if (touched) return;
+        const k = (t - t0) / 1000;
+        if (k > 6) return;
+        const v = 50 + Math.sin(k * 1.6) * 30 * Math.max(0, 1 - k / 6);
+        set(v); input.value = String(v);
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+
+    const cform = document.getElementById('contact-form');
+    if (cform instanceof HTMLFormElement) {
+      const status = cform.querySelector<HTMLElement>('.cform-status')!;
+      const btn = cform.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const contactApi = cform.dataset.contactApi!;
+      cform.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        status.textContent = '';
+        status.className = 'cform-status';
+        btn.disabled = true;
+        try {
+          const payload = Object.fromEntries(new FormData(cform).entries());
+          const r = await fetch(contactApi, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+          });
+          const data = await r.json().catch(() => ({}));
+          if (!r.ok || !data.ok) throw new Error(data.error || 'Error');
+          cform.reset();
+          status.textContent = '¡Mensaje enviado! Te contestamos en cuanto lo veamos.';
+          status.className = 'cform-status ok';
+        } catch {
+          status.textContent = 'No se pudo enviar. Escríbenos mejor por WhatsApp o llámanos.';
+          status.className = 'cform-status err';
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    }
+  </script>
+</Base>

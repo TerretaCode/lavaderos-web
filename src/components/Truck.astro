@@ -1,0 +1,114 @@
+---
+const { dirty = false } = Astro.props;
+const k = dirty ? 'd' : 'c';
+const cab1 = dirty ? '#a39887' : '#f6fafc';
+const cab2 = dirty ? '#6a5f52' : '#b7c8d6';
+const glass1 = dirty ? '#3a362f' : '#15405a';
+const glass2 = dirty ? '#1b1916' : '#06202e';
+const bg1 = dirty ? '#1a1815' : '#07263a';
+const bg2 = dirty ? '#2c2822' : '#0e5a7e';
+---
+<svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id={`bg-${k}`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color={bg1} /><stop offset="1" stop-color={bg2} />
+    </linearGradient>
+    <linearGradient id={`cab-${k}`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color={cab1} /><stop offset="1" stop-color={cab2} />
+    </linearGradient>
+    <linearGradient id={`gl-${k}`} x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color={glass1} /><stop offset="1" stop-color={glass2} />
+    </linearGradient>
+    <radialGradient id={`halo-${k}`} cx="0.5" cy="0.45" r="0.6">
+      <stop offset="0" stop-color={dirty ? '#5a4a36' : '#3fd8ff'} stop-opacity={dirty ? '0.25' : '0.45'} />
+      <stop offset="1" stop-color="#000" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+
+  <rect width="640" height="360" fill={`url(#bg-${k})`} />
+  <rect width="640" height="360" fill={`url(#halo-${k})`} />
+
+  {!dirty && (
+    <g opacity="0.5">
+      <path d="M120 0 L210 0 L90 360 L0 360Z" fill="#8be9ff" opacity="0.08" />
+      <path d="M330 0 L380 0 L300 360 L250 360Z" fill="#8be9ff" opacity="0.07" />
+      <path d="M560 0 L620 0 L520 360 L460 360Z" fill="#8be9ff" opacity="0.08" />
+    </g>
+  )}
+
+  <!-- carretera -->
+  <rect y="334" width="640" height="26" fill={dirty ? '#12100e' : '#04131c'} />
+  <g stroke={dirty ? '#4b4338' : '#2a7ea0'} stroke-width="3" stroke-dasharray="26 22" opacity="0.8">
+    <line x1="0" y1="350" x2="640" y2="350" />
+  </g>
+
+  <!-- chasis -->
+  <rect x="62" y="248" width="520" height="18" rx="4" fill={dirty ? '#2a2620' : '#1b2a36'} />
+  <rect x="372" y="232" width="196" height="16" rx="3" fill={dirty ? '#3a342b' : '#2c4150'} />
+  <rect x="330" y="214" width="72" height="38" rx="9" fill={dirty ? '#6f675b' : '#cfdbe4'} />
+  <rect x="338" y="224" width="56" height="3" rx="1.5" fill={dirty ? '#4e473d' : '#9fb4c3'} />
+
+  <!-- cabina -->
+  <path d="M262 86 L352 68 L352 172 L318 170Z" fill={`url(#cab-${k})`} />
+  <path d="M78 254 L78 112 Q78 90 100 89 L262 84 Q286 84 298 106 L320 170 L320 254Z" fill={`url(#cab-${k})`} />
+  <path d="M104 118 L254 113 Q268 113 276 126 L298 170 L104 170Z" fill={`url(#gl-${k})`} />
+  <path d="M104 118 L254 113 L226 170 L104 170Z" fill="#fff" opacity={dirty ? '0.03' : '0.12'} />
+  <line x1="196" y1="116" x2="196" y2="254" stroke={dirty ? '#463e33' : '#9fb2c1'} stroke-width="2" />
+  <rect x="202" y="196" width="26" height="6" rx="3" fill={dirty ? '#463e33' : '#8ea4b4'} />
+  <rect x="88" y="94" width="150" height="6" rx="3" fill={dirty ? '#7a7062' : '#ffffff'} opacity="0.5" />
+  <!-- faro, rejilla, parachoques -->
+  <rect x="80" y="206" width="12" height="20" rx="3" fill={dirty ? '#6a5a2a' : '#ffd36b'} />
+  <g stroke={dirty ? '#3d362c' : '#8ea4b4'} stroke-width="2">
+    <line x1="96" y1="186" x2="130" y2="186" /><line x1="96" y1="196" x2="130" y2="196" /><line x1="96" y1="206" x2="130" y2="206" />
+  </g>
+  <rect x="68" y="232" width="30" height="20" rx="5" fill={dirty ? '#2a2620' : '#22313d'} />
+  <rect x="92" y="124" width="12" height="40" rx="4" fill={dirty ? '#3a352d' : '#1a2c39'} />
+
+  <!-- pasos de rueda y ruedas -->
+  <path d="M96 292 A54 54 0 0 1 204 292Z" fill={dirty ? '#0d0b09' : '#06121a'} />
+  <path d="M376 292 A54 54 0 0 1 484 292Z" fill={dirty ? '#0d0b09' : '#06121a'} />
+  {[150, 430, 510].map((cx) => (
+    <g>
+      <circle cx={cx} cy="292" r="46" fill="#0b0e11" />
+      <circle cx={cx} cy="292" r="27" fill={dirty ? '#6f675b' : '#d5e1ea'} />
+      <circle cx={cx} cy="292" r="10" fill={dirty ? '#3a352d' : '#7e95a6'} />
+      {[0, 72, 144, 216, 288].map((a) => (
+        <circle cx={cx + Math.cos((a * Math.PI) / 180) * 18} cy={292 + Math.sin((a * Math.PI) / 180) * 18} r="2.4" fill={dirty ? '#3a352d' : '#7e95a6'} />
+      ))}
+    </g>
+  ))}
+
+  {dirty ? (
+    <g>
+      <path d="M78 254 L78 226 q10 -16 22 -4 t26 -10 t30 8 t34 -12 t30 10 t40 -8 t30 8 t30 -6 L320 254Z" fill="#46362a" opacity="0.88" />
+      <path d="M360 254 L360 234 q14 -12 30 -2 t34 -8 t40 6 t40 -6 t40 8 L570 254Z" fill="#46362a" opacity="0.85" />
+      <g fill="#46362a" opacity="0.8">
+        <circle cx="130" cy="200" r="4" /><circle cx="162" cy="212" r="3" /><circle cx="240" cy="196" r="5" /><circle cx="270" cy="150" r="3" />
+        <circle cx="112" cy="150" r="3" /><circle cx="214" cy="140" r="4" /><circle cx="294" cy="206" r="4" /><circle cx="300" cy="150" r="2.5" />
+        <circle cx="150" cy="292" r="46" opacity="0.35" /><circle cx="430" cy="292" r="46" opacity="0.35" /><circle cx="510" cy="292" r="46" opacity="0.35" />
+      </g>
+      <g stroke="#8a7656" stroke-width="3" stroke-linecap="round" opacity="0.5">
+        <line x1="130" y1="120" x2="138" y2="168" /><line x1="170" y1="118" x2="176" y2="166" /><line x1="226" y1="116" x2="238" y2="166" />
+        <line x1="260" y1="124" x2="274" y2="164" />
+      </g>
+      <g fill="#8a7656" opacity="0.18">
+        <ellipse cx="190" cy="150" rx="90" ry="26" /><ellipse cx="450" cy="226" rx="90" ry="14" />
+      </g>
+    </g>
+  ) : (
+    <g>
+      <path d="M118 96 L178 94 L128 252 L84 252Z" fill="#fff" opacity="0.28" />
+      <path d="M214 92 L236 91 L196 250 L180 250Z" fill="#fff" opacity="0.2" />
+      <g fill="#fff">
+        <path transform="translate(96 108) scale(0.9)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" />
+        <path transform="translate(268 100) scale(0.7)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" />
+        <path transform="translate(300 170) scale(0.5)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" />
+        <path transform="translate(408 224) scale(0.55)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" />
+        <path transform="translate(540 78) scale(0.9)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" opacity="0.7" />
+      </g>
+      <g fill="none" stroke="#bff3ff" stroke-width="1.5" opacity="0.7">
+        <circle cx="46" cy="140" r="9" /><circle cx="30" cy="190" r="5" /><circle cx="580" cy="150" r="11" /><circle cx="600" cy="210" r="6" /><circle cx="360" cy="40" r="7" />
+      </g>
+    </g>
+  )}
+</svg>
