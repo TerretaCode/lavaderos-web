@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro';
 import BeforeAfter from '../components/BeforeAfter.astro';
 import CabScene from '../components/CabScene.astro';
 import ShowroomScene from '../components/ShowroomScene.astro';
-import { wa, tel, PREVIEW, PHONE, PHONE_LABEL, CONTACT_API } from '../config';
+import { wa, tel, PREVIEW, PHONE, PHONE_LABEL } from '../config';
 
 const msg = {
   general: 'Hola, quería información sobre vuestros servicios de limpieza.',
@@ -38,7 +38,7 @@ const faqs = [
   <header class="nav" id="nav">
     <div class="wrap">
       <a href="#top" class="mark" aria-label="Lavaderos y Limpiezas, inicio">
-        <svg class="mark-drop" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c9 12 17 20 17 30a17 17 0 0 1-34 0C15 26 23 18 32 6Z" fill="#26d0ff"/><path d="M23 38a9 9 0 0 0 9 10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".85"/></svg>
+        <svg class="mark-drop" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c9 12 17 20 17 30a17 17 0 0 1-34 0C15 26 23 18 32 6Z" fill="#e50055"/><path d="M23 38a9 9 0 0 0 9 10" stroke="#fff" stroke-width="3.5" stroke-linecap="round" fill="none" opacity=".85"/></svg>
         <span class="mark-text"><b>Lavaderos</b><i>y Limpiezas</i></span>
       </a>
       <nav class="nav-links" aria-label="Principal">
@@ -214,7 +214,7 @@ const faqs = [
         <div class="contact-card reveal">
           <span class="eyebrow" style="color:var(--foam)">Hablemos</span>
           <h2 class="h2">Cuéntanos qué necesitas limpiar</h2>
-          <p class="lead">Escríbenos por WhatsApp y te respondemos.</p>
+          <p class="lead">Llámanos o escríbenos por WhatsApp al 663 42 30 34 y te respondemos.</p>
           <div class="cta-row">
             <a class="btn btn-wa" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={22} />Abrir WhatsApp</a>
             {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />Llamar ahora</a>}
@@ -225,33 +225,6 @@ const faqs = [
           </div>
         </div>
 
-        <div class="contact-form-card reveal" style="--d:.1s">
-          <span class="eyebrow">O escríbenos aquí</span>
-          <h3 style="margin-top:10px">Cuéntanos qué necesitas limpiar</h3>
-          <p class="lead" style="margin-top:8px">Te respondemos por WhatsApp o por teléfono en cuanto lo veamos.</p>
-          <form id="contact-form" class="cform" data-contact-api={CONTACT_API}>
-            <input type="text" name="web_hp" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-            <div class="cform-row">
-              <label>Nombre o empresa<input type="text" name="nombre" required maxlength="120" placeholder="Tu nombre o empresa" /></label>
-              <label>Teléfono o email<input type="text" name="contacto" required maxlength="160" placeholder="600 123 456" /></label>
-            </div>
-            <label>Qué necesitas
-              <select name="servicio">
-                <option value="">Elige un servicio (opcional)</option>
-                <option>Tractoras en campa</option>
-                <option>Concesionario</option>
-                <option>Lavadero en la nave</option>
-                <option>Oficinas</option>
-                <option>Planta agroalimentaria</option>
-                <option>Lavandería de uniformes</option>
-                <option>Otro</option>
-              </select>
-            </label>
-            <label>Mensaje<textarea name="mensaje" required maxlength="2000" rows="4" placeholder="Cuéntanos qué necesitas limpiar y dónde"></textarea></label>
-            <button class="btn btn-send" type="submit"><Icon name="send" size={18} />Enviar mensaje</button>
-            <p class="cform-status" role="status" aria-live="polite"></p>
-          </form>
-        </div>
       </div>
     </section>
   </main>
@@ -260,7 +233,7 @@ const faqs = [
     <div class="wrap">
       <div class="foot">
         <div>
-          <a href="#top" class="mark"><svg class="mark-drop" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c9 12 17 20 17 30a17 17 0 0 1-34 0C15 26 23 18 32 6Z" fill="#26d0ff"/></svg><span class="mark-text"><b>Lavaderos</b><i>y Limpiezas</i></span></a>
+          <a href="#top" class="mark"><svg class="mark-drop" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 6c9 12 17 20 17 30a17 17 0 0 1-34 0C15 26 23 18 32 6Z" fill="#e50055"/></svg><span class="mark-text"><b>Lavaderos</b><i>y Limpiezas</i></span></a>
           <p style="margin-top:14px;max-width:38ch">Limpieza de vehículos y servicios de limpieza para empresas en Riba-roja de Túria (Valencia).</p>
         </div>
         <nav aria-label="Pie"><a href="#servicios">Servicios</a><a href="#nave">La nave</a><a href="#proceso">Cómo trabajamos</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a></nav>
@@ -310,35 +283,5 @@ const faqs = [
       requestAnimationFrame(tick);
     });
 
-    const cform = document.getElementById('contact-form');
-    if (cform instanceof HTMLFormElement) {
-      const status = cform.querySelector<HTMLElement>('.cform-status')!;
-      const btn = cform.querySelector<HTMLButtonElement>('button[type="submit"]')!;
-      const contactApi = cform.dataset.contactApi!;
-      cform.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        status.textContent = '';
-        status.className = 'cform-status';
-        btn.disabled = true;
-        try {
-          const payload = Object.fromEntries(new FormData(cform).entries());
-          const r = await fetch(contactApi, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload),
-          });
-          const data = await r.json().catch(() => ({}));
-          if (!r.ok || !data.ok) throw new Error(data.error || 'Error');
-          cform.reset();
-          status.textContent = '¡Mensaje enviado! Te contestamos en cuanto lo veamos.';
-          status.className = 'cform-status ok';
-        } catch {
-          status.textContent = 'No se pudo enviar. Escríbenos mejor por WhatsApp o llámanos.';
-          status.className = 'cform-status err';
-        } finally {
-          btn.disabled = false;
-        }
-      });
-    }
   </script>
 </Base>

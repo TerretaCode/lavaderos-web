@@ -20,7 +20,7 @@ const bg2 = dirty ? '#2c2822' : '#0e5a7e';
       <stop offset="0" stop-color={glass1} /><stop offset="1" stop-color={glass2} />
     </linearGradient>
     <radialGradient id={`halo-${k}`} cx="0.5" cy="0.45" r="0.6">
-      <stop offset="0" stop-color={dirty ? '#5a4a36' : '#3fd8ff'} stop-opacity={dirty ? '0.25' : '0.45'} />
+      <stop offset="0" stop-color={dirty ? '#5a4a36' : '#ff3d84'} stop-opacity={dirty ? '0.25' : '0.45'} />
       <stop offset="1" stop-color="#000" stop-opacity="0" />
     </radialGradient>
   </defs>
@@ -30,9 +30,9 @@ const bg2 = dirty ? '#2c2822' : '#0e5a7e';
 
   {!dirty && (
     <g opacity="0.5">
-      <path d="M120 0 L210 0 L90 360 L0 360Z" fill="#8be9ff" opacity="0.08" />
-      <path d="M330 0 L380 0 L300 360 L250 360Z" fill="#8be9ff" opacity="0.07" />
-      <path d="M560 0 L620 0 L520 360 L460 360Z" fill="#8be9ff" opacity="0.08" />
+      <path d="M120 0 L210 0 L90 360 L0 360Z" fill="#ffb3cc" opacity="0.08" />
+      <path d="M330 0 L380 0 L300 360 L250 360Z" fill="#ffb3cc" opacity="0.07" />
+      <path d="M560 0 L620 0 L520 360 L460 360Z" fill="#ffb3cc" opacity="0.08" />
     </g>
   )}
 
@@ -65,8 +65,8 @@ const bg2 = dirty ? '#2c2822' : '#0e5a7e';
   <rect x="92" y="124" width="12" height="40" rx="4" fill={dirty ? '#3a352d' : '#1a2c39'} />
 
   <!-- pasos de rueda y ruedas -->
-  <path d="M96 292 A54 54 0 0 1 204 292Z" fill={dirty ? '#0d0b09' : '#06121a'} />
-  <path d="M376 292 A54 54 0 0 1 484 292Z" fill={dirty ? '#0d0b09' : '#06121a'} />
+  <path d="M96 292 A54 54 0 0 1 204 292Z" fill={dirty ? '#0d0b09' : '#1a0610'} />
+  <path d="M376 292 A54 54 0 0 1 484 292Z" fill={dirty ? '#0d0b09' : '#1a0610'} />
   {[150, 430, 510].map((cx) => (
     <g>
       <circle cx={cx} cy="292" r="46" fill="#0b0e11" />
@@ -106,7 +106,7 @@ const bg2 = dirty ? '#2c2822' : '#0e5a7e';
         <path transform="translate(408 224) scale(0.55)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" />
         <path transform="translate(540 78) scale(0.9)" d="M0 -14 L3 -3 L14 0 L3 3 L0 14 L-3 3 L-14 0 L-3 -3Z" opacity="0.7" />
       </g>
-      <g fill="none" stroke="#bff3ff" stroke-width="1.5" opacity="0.7">
+      <g fill="none" stroke="#ffe5ee" stroke-width="1.5" opacity="0.7">
         <circle cx="46" cy="140" r="9" /><circle cx="30" cy="190" r="5" /><circle cx="580" cy="150" r="11" /><circle cx="600" cy="210" r="6" /><circle cx="360" cy="40" r="7" />
       </g>
     </g>

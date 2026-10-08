@@ -1,7 +1,7 @@
 // Rellenar cuando el cliente facilite los datos. Con WHATSAPP vacío, los botones abren WhatsApp para elegir contacto.
-export const WHATSAPP = ''; // formato internacional sin '+', ej. '34600123456'
-export const PHONE = ''; // formato internacional sin '+', ej. '34600123456'. Vacío = los botones de llamada no se muestran.
-export const PHONE_LABEL = ''; // opcional, cómo se muestra en pantalla, ej. '600 123 456'
+export const WHATSAPP = '34663423034'; // formato internacional sin '+', ej. '34600123456'
+export const PHONE = '34663423034'; // formato internacional sin '+', ej. '34600123456'. Vacío = los botones de llamada no se muestran.
+export const PHONE_LABEL = '663 42 30 34'; // opcional, cómo se muestra en pantalla, ej. '600 123 456'
 export const PREVIEW = true; // true = web de revisión: noindex + etiqueta visible
 
 export const wa = (text: string) =>
