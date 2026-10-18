@@ -29,8 +29,76 @@ const ld = {
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <script type="application/ld+json" set:html={JSON.stringify(ld)} />
     <script is:inline>document.documentElement.classList.add('js')</script>
+    <!-- Modo de consentimiento v2: por defecto denegado hasta que el visitante acepte en el aviso de cookies -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      var lylConsent = null;
+      try { lylConsent = localStorage.getItem('lyl-consent'); } catch (e) {}
+      var lylEstado = lylConsent === 'granted' ? 'granted' : 'denied';
+      gtag('consent', 'default', {
+        ad_storage: lylEstado, ad_user_data: lylEstado, ad_personalization: lylEstado, analytics_storage: lylEstado,
+        wait_for_update: 500
+      });
+      gtag('set', 'ads_data_redaction', true);
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18520255822"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-18520255822');
+    </script>
+    <script is:inline>
+      gtag('config', 'AW-18520255822/4wHWCOPHhKEdEM7akv9E', {
+        'phone_conversion_number': '663 42 30 34'
+      });
+    </script>
+    <script is:inline>
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest('a');
+      if (!a) return;
+      var h = a.getAttribute('href') || '';
+      if (h.indexOf('wa.me') > -1 || h.indexOf('api.whatsapp.com') > -1 || h.indexOf('whatsapp://') === 0) {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18520255822/ihd1CPGRhKEdEM7akv9E',
+          'value': 1.0,
+          'currency': 'EUR'
+        });
+      }
+    });
+    </script>
   </head>
   <body>
     <slot />
+    <div class="cookies" id="cookies" role="dialog" aria-live="polite" aria-label="Aviso de cookies" hidden>
+      <p>Usamos cookies de Google para medir qué anuncios funcionan. Solo se activan si las aceptas. <a href="/cookies">Más información</a></p>
+      <div class="cookies-btns">
+        <button type="button" class="btn btn-ghost btn-sm" data-consent="denied">Rechazar</button>
+        <button type="button" class="btn btn-send btn-sm" data-consent="granted">Aceptar</button>
+      </div>
+    </div>
+    <script is:inline>
+      (function () {
+        var caja = document.getElementById('cookies');
+        var guardado = null;
+        try { guardado = localStorage.getItem('lyl-consent'); } catch (e) {}
+        if (!guardado) caja.hidden = false;
+        function elegir(v) {
+          try { localStorage.setItem('lyl-consent', v); } catch (e) {}
+          gtag('consent', 'update', { ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v });
+          caja.hidden = true;
+        }
+        caja.addEventListener('click', function (e) {
+          var b = e.target.closest('[data-consent]');
+          if (b) elegir(b.getAttribute('data-consent'));
+        });
+        document.addEventListener('click', function (e) {
+          if (e.target.closest('[data-abrir-cookies]')) { e.preventDefault(); caja.hidden = false; }
+        });
+      })();
+    </script>
   </body>
 </html>

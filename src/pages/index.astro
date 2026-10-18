@@ -217,7 +217,7 @@ const faqs = [
           <p class="lead">Llámanos o escríbenos por WhatsApp al 663 42 30 34 y te respondemos.</p>
           <div class="cta-row">
             <a class="btn btn-wa" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={22} />Abrir WhatsApp</a>
-            {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />Llamar ahora</a>}
+            {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />{PHONE_LABEL}</a>}
           </div>
           <div class="contact-meta">
             <span><Icon name="pin" size={18} />Riba-roja de Túria, Valencia</span>
@@ -238,12 +238,12 @@ const faqs = [
         </div>
         <nav aria-label="Pie"><a href="#servicios">Servicios</a><a href="#nave">La nave</a><a href="#proceso">Cómo trabajamos</a><a href="#faq">Preguntas</a><a href="#contacto">Contacto</a></nav>
       </div>
-      <p class="legal">© {new Date().getFullYear()} Lavaderos y Limpiezas.{PREVIEW && <span class="preview-pill">Versión de revisión</span>}</p>
+      <p class="legal">© {new Date().getFullYear()} Lavaderos y Limpiezas. <a href="/cookies">Cookies</a> · <a href="#" data-abrir-cookies>Configurar cookies</a>{PREVIEW && <span class="preview-pill">Versión de revisión</span>}</p>
     </div>
   </footer>
 
   <div class="mobile-bar">
-    {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />Llamar</a>}
+    {PHONE && <a class="btn btn-ghost" href={tel()}><Icon name="phone" size={20} />{PHONE_LABEL}</a>}
     <a class="btn btn-wa" href={wa(msg.general)} target="_blank" rel="noopener"><Icon name="whatsapp" size={20} />WhatsApp</a>
   </div>
   <a class="fab" href={wa(msg.general)} target="_blank" rel="noopener" aria-label="Escribir por WhatsApp"><Icon name="whatsapp" size={30} /></a>
