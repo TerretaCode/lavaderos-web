@@ -223,6 +223,8 @@ section { position: relative; padding-block: clamp(64px, 8vw, 110px); }
 .cookies a { color: var(--water); text-decoration: underline; }
 .cookies-btns { display: flex; gap: 10px; }
 .legal a { text-decoration: underline; }
+.legal.credit { margin-top: 8px; }
+.legal.credit a { color: var(--water); font-weight: 600; }
 @media (max-width: 760px) { .cookies { bottom: calc(84px + env(safe-area-inset-bottom)); } }
 
 /* ---------- footer ---------- */
